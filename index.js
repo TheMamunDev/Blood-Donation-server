@@ -120,7 +120,7 @@ async function runGetStarted() {
       res.send(result);
     });
 
-    app.patch('/blood-request/close/:id', async (req, res) => {
+    app.patch('/blood-request/close/:id', verifyToken, async (req, res) => {
       const id = req.params.id;
 
       if (!ObjectId.isValid(id)) {
@@ -141,7 +141,7 @@ async function runGetStarted() {
       });
     });
 
-    app.delete('/blood-request/:id', async (req, res) => {
+    app.delete('/blood-request/:id', verifyToken, async (req, res) => {
       const id = req.params.id;
 
       if (!ObjectId.isValid(id)) {
@@ -156,7 +156,7 @@ async function runGetStarted() {
       });
     });
 
-    await client.db('admin').command({ ping: 1 });
+    // await client.db('admin').command({ ping: 1 });
     console.log('Connected to MongoDB!');
   } finally {
   }
